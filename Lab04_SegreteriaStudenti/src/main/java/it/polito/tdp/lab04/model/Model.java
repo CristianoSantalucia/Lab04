@@ -9,7 +9,14 @@ public class Model
 	CorsoDAO corsoDao = new CorsoDAO();
 	
 	/**
-	 * @return i nomi di tutti i corsi 
+	 * @return tutti gli oggetti {@code Corso} del db
+	 */
+	public Collection<Corso> getTuttiCorsi()
+	{
+		return corsoDao.getTuttiICorsi();
+	}
+	/**
+	 * @return una lista di stringhe contenente tutti i nomi dei corsi 
 	 */
 	public Collection<String> getNomeTuttiCorsi()
 	{
@@ -17,5 +24,14 @@ public class Model
 		for (Corso c : corsoDao.getTuttiICorsi())
 			lista.add(c.getNome());
 		return lista;
+	}
+	
+	/**
+	 * passato il @param codiceIns
+	 * @return del {@code Corso} relativo
+	 */
+	public Corso getCorso(String codiceIns)
+	{
+		return corsoDao.getCorso(codiceIns);
 	}
 }

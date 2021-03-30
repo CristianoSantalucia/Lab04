@@ -56,19 +56,21 @@ public class CorsoDAO
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
-	public Corso getCorso(String codins)
+	public Corso getCorso(String codiceIns)
 	{
-		List<Corso> corsi = new LinkedList<Corso>();
-
-		final String sql = "SELECT * FROM corso ";
+		final String sql = "SELECT * FROM corso as c WHERE c.codins = ?";
 
 		try
 		{
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-//			st.setInt(1, periodo);
+			
+			st.setString(1, codiceIns);
+			
 			ResultSet rs = st.executeQuery();
 
+			Corso corso = null;
+			
 			while (rs.next())
 			{
 
@@ -77,15 +79,14 @@ public class CorsoDAO
 				String nome = rs.getString("nome");
 				int periodoDidattico = rs.getInt("pd"); 
 
-				Corso corso = new Corso(codins, numeroCrediti, nome, periodoDidattico);
-				corsi.add(corso);
+				corso = new Corso(codins, numeroCrediti, nome, periodoDidattico);
 			}
 
 			rs.close();
 			st.close();
 			conn.close();
 
-			return null;
+			return corso;
 
 		} catch (SQLException e)
 		{

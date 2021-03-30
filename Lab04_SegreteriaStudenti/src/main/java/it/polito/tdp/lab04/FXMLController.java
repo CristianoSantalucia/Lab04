@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class FXMLController
 {
@@ -20,6 +21,7 @@ public class FXMLController
 	@FXML private ResourceBundle resources;
 	@FXML private URL location;
 	@FXML private ComboBox<String> comboBoxCorsi;
+	@FXML private TextField txtInputMatricola;
 	@FXML private TextArea txtResult;
 
 	@FXML
@@ -43,7 +45,7 @@ public class FXMLController
 	@FXML
 	void doIscrivi(ActionEvent event)
 	{
-
+		
 	}
 
 	@FXML
@@ -55,7 +57,7 @@ public class FXMLController
 	@FXML
 	void doReset(ActionEvent event)
 	{
-
+		txtResult.clear();
 	}
 
 	@FXML
@@ -69,12 +71,14 @@ public class FXMLController
 	{
 		assert comboBoxCorsi != null : "fx:id=\"comboBoxCorsi\" was not injected: check your FXML file 'Scene.fxml'.";
 		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
+		assert txtInputMatricola != null : "fx:id=\"txtInputMatricola\" was not injected: check your FXML file 'Scene.fxml'.";
 	}
 
 	public void setModel(Model model)
 	{
 		this.model = model;
 		
+		comboBoxCorsi.getItems().add(" ");
 		comboBoxCorsi.getItems().addAll(model.getNomeTuttiCorsi());
 	}
 }

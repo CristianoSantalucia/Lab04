@@ -36,7 +36,7 @@
             <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="600.0" spacing="10.0">
                <children>
                   <Label text="Studente: " />
-                  <TextField onAction="#doMatricolaCodins" prefHeight="25.0" prefWidth="67.0" />
+                  <TextField fx:id="txtInputMatricola" onAction="#doMatricolaCodins" prefHeight="25.0" prefWidth="67.0" />
                   <CheckBox mnemonicParsing="false" onAction="#doCompeteName" prefHeight="17.0" prefWidth="14.0" />
                   <TextField editable="false" promptText="Nome" />
                   <TextField editable="false" promptText="Cognome" />
