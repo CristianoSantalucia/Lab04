@@ -53,4 +53,11 @@ public class Studente
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Studente [matricola=" + matricola + ", cognome=" + cognome + ", nome=" + nome + ", cds=" + cds + "]";
+	}
+	
 }

@@ -7,8 +7,7 @@ public class TestModel {
 		Model model = new Model();
 		
 
-		System.out.println(model.getCorso("01KSUPG").getNome());
-
+		System.out.println(model.getCorsoFromCodins("01KSUPG").getNome());
 	}
 
 }

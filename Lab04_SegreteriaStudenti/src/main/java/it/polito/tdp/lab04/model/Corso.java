@@ -5,7 +5,7 @@ public class Corso
 	private String codins;
 	private int numeroCrediti;
 	private String nome;
-	private int periodoDidattico;
+	private int periodoDidattico; 
 
 	public Corso(String codins, int numeroCrediti, String nome, int periodoDidattico)
 	{
