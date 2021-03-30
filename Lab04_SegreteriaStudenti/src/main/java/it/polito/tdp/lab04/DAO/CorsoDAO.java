@@ -85,7 +85,7 @@ public class CorsoDAO
 			st.close();
 			conn.close();
 
-			return corsi;
+			return null;
 
 		} catch (SQLException e)
 		{
