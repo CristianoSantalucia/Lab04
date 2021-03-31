@@ -30,8 +30,7 @@ public class Studente
 		return cds;
 	}
 
-	@Override
-	public int hashCode()
+	@Override public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
@@ -39,18 +38,13 @@ public class Studente
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj)
+	@Override public boolean equals(Object obj)
 	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
 		Studente other = (Studente) obj;
-		if (matricola != other.matricola)
-			return false;
+		if (matricola != other.matricola) return false;
 		return true;
 	}
 

@@ -16,59 +16,17 @@ public class Model
 	public Collection<Corso> getTuttiCorsi()
 	{
 		return crsDao.getTuttiICorsi();
-	}
-	/**
-	 * @return una lista di stringhe contenente tutti i nomi dei corsi 
-	 */
-	public Collection<String> getNomeTuttiCorsi()
-	{
-		List<String> lista = new ArrayList<>();
-		for (Corso c : crsDao.getTuttiICorsi())
-			lista.add(c.getNome());
-		return lista;
-	}
-	
-	/**
-	 * passato il @param codiceIns
-	 * @return del {@code Corso} relativo
-	 */
-	public Corso getCorsoFromCodins(String codiceIns)
-	{
-		return crsDao.getCorsoFromCodins(codiceIns);
-	}
-	
-	/**
-	 * passato il @param nomeCorso
-	 * @return del {@code Corso} relativo
-	 */
-	public Corso getCorsoFromName(String nomeCorso)
-	{
-		return crsDao.getCorsoFromName(nomeCorso);
-	}
-	
+	} 
 	/**
 	 * @param {@code Corso} passato per cercare gli studenti iscritti al relativo corso
 	 * @return {@code Collection} di studenti trovati
 	 */
-	public Collection<Studente> getStudentiIscrittiCorso(String nomeCorso)
+	public Collection<Studente> getStudentiIscrittiCorso(Corso corso)
 	{
-		Corso corso = this.getCorsoFromName(nomeCorso);
 		if (corso != null)
-			System.out.println(crsDao.getStudentiIscrittiAlCorso(corso));
 			return crsDao.getStudentiIscrittiAlCorso(corso);
-	}
-	
-	/**
-	 * @return una {@code Stringa} già formattata degli studenti iscrtti al corso passato come parametro
-	 * @param codCorso 
-	 */
-	public String stampaStudentiIscrittiCorso(String codCorso)
-	{
-		String s = "";
-		for (Studente studente : this.getStudentiIscrittiCorso(codCorso))
-			s += String.format("%-10s %-20s %-20s %-10s\n",studente.getMatricola(),studente.getNome(),studente.getCognome(),studente.getCds());
-		return s;
-	}
+		else return null;
+	} 
 	
 	//******************STUDENTE*******************\\
 	
@@ -76,8 +34,15 @@ public class Model
 	 * @param matricola
 	 * @return di un oggetto {@code Studente} la cui matricola è passata come parametro
 	 */
-	public Studente getStudente(int matricola)
+	public Studente getStudente(Studente studente)
 	{
-		return stDao.getStudente(matricola);
+		return stDao.getStudente(studente);
+	}
+	
+	public Collection<Corso> getIscrizioniStudente(Studente studente)
+	{
+		if(this.getStudente(studente) != null)
+			return stDao.getIscrizioniStudente(studente);
+		else return null;
 	}
 }

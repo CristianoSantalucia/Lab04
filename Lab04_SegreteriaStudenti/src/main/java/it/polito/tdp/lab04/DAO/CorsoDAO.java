@@ -27,7 +27,7 @@ public class CorsoDAO
 		{
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-			
+
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next())
@@ -36,7 +36,7 @@ public class CorsoDAO
 				String codins = rs.getString("codins");
 				int numeroCrediti = rs.getInt("crediti");
 				String nome = rs.getString("nome");
-				int periodoDidattico = rs.getInt("pd"); 
+				int periodoDidattico = rs.getInt("pd");
 
 				Corso corso = new Corso(codins, numeroCrediti, nome, periodoDidattico);
 				corsi.add(corso);
@@ -48,101 +48,15 @@ public class CorsoDAO
 
 			return corsi;
 
-		} catch (SQLException e)
+		}
+		catch (SQLException e)
 		{
 			// e.printStackTrace();
 			throw new RuntimeException("Errore Db", e);
 		}
 	}
-
 	/**
-	 * Dato un codice insegnamento, @return il corso relativo
-	 * @param codiceIns
-	 */
-	public Corso getCorsoFromName(String nomeCorso)
-	{
-		final String sql = "SELECT * FROM corso as c WHERE c.nome = ?";
-
-		try
-		{
-			Connection conn = ConnectDB.getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-			
-			st.setString(1, nomeCorso);
-			
-			ResultSet rs = st.executeQuery();
-
-			Corso corso = null;
-			
-			while (rs.next())
-			{
-
-				String codins = rs.getString("codins");
-				int numeroCrediti = rs.getInt("crediti");
-				String nome = rs.getString("nome");
-				int periodoDidattico = rs.getInt("pd"); 
-
-				corso = new Corso(codins, numeroCrediti, nome, periodoDidattico);
-			}
-
-			rs.close();
-			st.close();
-			conn.close();
-
-			return corso;
-
-		} catch (SQLException e)
-		{
-			// e.printStackTrace();
-			throw new RuntimeException("Errore Db", e);
-		}
-	}
-	
-	/**
-	 * Dato un codice insegnamento, @return il corso relativo
-	 * @param codiceIns
-	 */
-	public Corso getCorsoFromCodins(String codiceIns)
-	{
-		final String sql = "SELECT * FROM corso as c WHERE c.codins = ?";
-
-		try
-		{
-			Connection conn = ConnectDB.getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-			
-			st.setString(1, codiceIns);
-			
-			ResultSet rs = st.executeQuery();
-
-			Corso corso = null;
-			
-			while (rs.next())
-			{
-
-				String codins = rs.getString("codins");
-				int numeroCrediti = rs.getInt("crediti");
-				String nome = rs.getString("nome");
-				int periodoDidattico = rs.getInt("pd"); 
-
-				corso = new Corso(codins, numeroCrediti, nome, periodoDidattico);
-			}
-
-			rs.close();
-			st.close();
-			conn.close();
-
-			return corso;
-
-		} catch (SQLException e)
-		{
-			// e.printStackTrace();
-			throw new RuntimeException("Errore Db", e);
-		}
-	}
-
-	/**
-	 * @return una {@code List} di studenti iscritti al corso passato come parametro
+	 * @return una {@code List} di studenti iscritti al corso parametro
 	 * @param {@code Corso}
 	 */
 	public Collection<Studente> getStudentiIscrittiAlCorso(Corso corso)
@@ -150,18 +64,16 @@ public class CorsoDAO
 		List<Studente> studenti = new ArrayList<>();
 
 		final String sql = "SELECT s.matricola,s.cognome,s.nome,s.cds "
-				+ "FROM corso AS c, iscrizione AS i, studente AS s "
-				+ "WHERE c.codins = i.codins "
-				+ "		AND s.matricola = i.matricola "
-				+ "		AND c.codins = ?";
+				+ "FROM corso AS c, iscrizione AS i, studente AS s " + "WHERE c.codins = i.codins "
+				+ "		AND s.matricola = i.matricola " + "		AND c.codins = ?";
 
 		try
 		{
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-			
+
 			st.setString(1, corso.getCodins());
-			
+
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next())
@@ -178,15 +90,15 @@ public class CorsoDAO
 			rs.close();
 			st.close();
 			conn.close();
-		} catch (SQLException e)
+
+			return studenti;
+		}
+		catch (SQLException e)
 		{
 			// e.printStackTrace();
 			throw new RuntimeException("Errore Db", e);
 		}
-
-		return studenti;
 	}
-
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
 	 */
@@ -196,5 +108,4 @@ public class CorsoDAO
 		// ritorna true se l'iscrizione e' avvenuta con successo
 		return false;
 	}
-
 }
