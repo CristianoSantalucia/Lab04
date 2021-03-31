@@ -15,7 +15,7 @@ import it.polito.tdp.lab04.model.Studente;
 public class CorsoDAO
 {
 	/**
-	 * @return tutti i corsi salvati nel db
+	 * @return {@code Collection<Corso>} di tutti i corsi salvati nel db
 	 */
 	public Collection<Corso> getTuttiICorsi()
 	{
@@ -27,7 +27,7 @@ public class CorsoDAO
 		{
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-//			st.setInt(1, periodo);
+			
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next())

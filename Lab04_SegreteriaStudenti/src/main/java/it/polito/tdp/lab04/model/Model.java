@@ -7,8 +7,8 @@ import it.polito.tdp.lab04.DAO.StudenteDAO;
 
 public class Model 
 {
-	CorsoDAO crsDao = new CorsoDAO();
-	StudenteDAO stDao = new StudenteDAO();
+	private CorsoDAO crsDao = new CorsoDAO();
+	private StudenteDAO stDao = new StudenteDAO();
 	
 	/**
 	 * @return tutti gli oggetti {@code Corso} del db
@@ -58,6 +58,10 @@ public class Model
 			return crsDao.getStudentiIscrittiAlCorso(corso);
 	}
 	
+	/**
+	 * @return una {@code Stringa} già formattata degli studenti iscrtti al corso passato come parametro
+	 * @param codCorso 
+	 */
 	public String stampaStudentiIscrittiCorso(String codCorso)
 	{
 		String s = "";
@@ -66,9 +70,12 @@ public class Model
 		return s;
 	}
 	
-	
 	//******************STUDENTE*******************\\
 	
+	/**
+	 * @param matricola
+	 * @return di un oggetto {@code Studente} la cui matricola è passata come parametro
+	 */
 	public Studente getStudente(int matricola)
 	{
 		return stDao.getStudente(matricola);
