@@ -29,7 +29,7 @@ public class FXMLController
 	@FXML private TextField txtCognome;
 	@FXML private TextArea txtResult;
 
-	/*****************CORSI********************/
+	//*****************CORSI********************\\
 	
 	@FXML void selectCorso(ActionEvent event)
 	{
@@ -58,7 +58,7 @@ public class FXMLController
 		return sb;
 	}
 	
-	/*****************STUDENTI*****************/
+	//*****************STUDENTI*****************\\
 	
 	@FXML void doCompleteName(ActionEvent event)
 	{
@@ -128,7 +128,7 @@ public class FXMLController
 		
 	}
 	
-	/****************RESET**********************/
+	//****************RESET**********************\\
 	
 	@FXML void doReset(ActionEvent event)
 	{
@@ -139,7 +139,7 @@ public class FXMLController
 		comboBoxCorsi.setValue(null);
 	}
 	
-	/*******************************************/
+	//*******************************************\\
 	
 	@FXML void initialize()
 	{
