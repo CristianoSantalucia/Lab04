@@ -10,6 +10,8 @@ public class Model
 	private CorsoDAO crsDao = new CorsoDAO();
 	private StudenteDAO stDao = new StudenteDAO();
 	
+	//*****************CORSO********************\\
+	
 	/**
 	 * @return tutti gli oggetti {@code Corso} del db
 	 */
@@ -31,18 +33,26 @@ public class Model
 	//******************STUDENTE*******************\\
 	
 	/**
-	 * @param matricola
-	 * @return di un oggetto {@code Studente} la cui matricola è passata come parametro
+	 * @return di un oggetto {@code Studente} data la matricola
 	 */
 	public Studente getStudente(Studente studente)
 	{
 		return stDao.getStudente(studente);
 	}
-	
+	/**
+	 * @return di una {@code Collection<Corso>} cui lo studente risulta iscritto
+	 */
 	public Collection<Corso> getIscrizioniStudente(Studente studente)
 	{
 		if(this.getStudente(studente) != null)
 			return stDao.getIscrizioniStudente(studente);
 		else return null;
+	}
+	
+	//*****************ISCRIZIONE*********************\\
+	
+	public boolean iscrivi(Studente studente, Corso corso)
+	{
+		return (crsDao.inscriviStudenteACorso(studente, corso));
 	}
 }

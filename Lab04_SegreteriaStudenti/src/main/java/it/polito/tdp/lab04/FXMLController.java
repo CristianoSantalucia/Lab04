@@ -15,6 +15,9 @@ public class FXMLController
 	private final String ERRORE_INPUT_CORSO = "CODICE CORSO NON CORRETTO (O INESISTENTE)";
 	private final String ERRORE_INPUT_MATRICOLA = "CODICE MATRICOLA NON CORRETTO (O INESISTENTE)\n"
 													+ "-> CLICCA SU \"ISCRIVI SE VUOI AGGIUNGERE UNO STUDENTE AL DATABASE\"";
+	private final String ISCRIZIONE_CORRETTA = "ISCRIZIONE COMPLETATA CORRETTAMENTE";
+	private final String ISCRIZIONE_ERRATA = "CODICE CORSO O MATRICOLA NON CORRETTO (O INESISTENTE)\n-> ISCRIZIONE NON COMPLETATA";
+	private final String ISCRIZIONE_GIAEFFETTUATA = "LO STUDENTE RISULTA GIA' ISCRITTO AL CORSO SELEZIONATO";
 	
 	private Model model;
 
@@ -26,12 +29,13 @@ public class FXMLController
 	@FXML private TextField txtCognome;
 	@FXML private TextArea txtResult;
 
-	/***************CORSI*****************/
+	/*****************CORSI********************/
 	
 	@FXML void selectCorso(ActionEvent event)
 	{
-		if (comboBoxCorsi.getValue() != null)
-			txtResult.setText("SELEZIONATO CORSO DI: " + comboBoxCorsi.getValue().getNome() + "\n\n");
+		Corso c = comboBoxCorsi.getValue();
+		if (c != null)
+			txtResult.setText("SELEZIONATO CORSO DI: " + c.getNome() + "\n\n");
 		else txtResult.setText(ERRORE_INPUT_CORSO);
 	}
 	@FXML void doCercaIscrittiCorso(ActionEvent event)
@@ -54,7 +58,7 @@ public class FXMLController
 		return sb;
 	}
 	
-	/***************STUDENTI***************/
+	/*****************STUDENTI*****************/
 	
 	@FXML void doCompleteName(ActionEvent event)
 	{
@@ -107,12 +111,23 @@ public class FXMLController
 	}
 	@FXML void doIscrivi(ActionEvent event)
 	{
-
+		Studente s = this.getStudente();
+		Corso c = comboBoxCorsi.getValue();
+		
+		if (c != null && s != null)
+		{
+			if(model.iscrivi(s, c))
+				txtResult.setText(ISCRIZIONE_CORRETTA);
+			else 
+				txtResult.setText(ISCRIZIONE_GIAEFFETTUATA);
+		}
+		else txtResult.setText(ISCRIZIONE_ERRATA);
 	}
 	@FXML void doMatricolaCodins(ActionEvent event)
 	{
-
+		
 	}
+	
 	/****************RESET**********************/
 	
 	@FXML void doReset(ActionEvent event)
@@ -123,7 +138,9 @@ public class FXMLController
 		txtCognome.clear();
 		comboBoxCorsi.setValue(null);
 	}
+	
 	/*******************************************/
+	
 	@FXML void initialize()
 	{
 		assert comboBoxCorsi != null : "fx:id=\"comboBoxCorsi\" was not injected: check your FXML file 'Scene.fxml'.";
@@ -135,8 +152,9 @@ public class FXMLController
 		assert model != null : "MODEL PASSATO COME PARAMETRO NULLO";
 		this.model = model;
 		
+		//init
 		txtResult.setStyle("-fx-font-family: monospace");
-
+		
 		comboBoxCorsi.getItems().add(new Corso(null, 0, " ", 0));
 		comboBoxCorsi.getItems().addAll(model.getTuttiCorsi());
 	}
